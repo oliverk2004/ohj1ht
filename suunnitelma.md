@@ -17,7 +17,7 @@ Pelaajien lukumäärä: 1
 Peli perustuu klassiseen Tetrikseen. Pelaajan tehtävänä on pinota putoavia palikoita siten, että vaakarivit täyttyvät kokonaan. Täydet rivit poistuvat ja tuottavat pisteitä. Pelin vaikeustaso kasvaa ajan myötä.
 ## Pelin idea ja tavoitteet
 
-Tavoitteena on saada mahdollisimman paljon pisteitä ennen kuin pelialue täyttyy yläreunaan asti.
+Tavoitteena on saada mahdollisimman paljon pisteitä ennen kuin pelialue täyttyy yläreunaan asti kuten perinteisessä Tetriksessä. 
 
 Tavoite, että pelaaja pystyy:
 - Kääntämään palikkaa
@@ -25,7 +25,7 @@ Tavoite, että pelaaja pystyy:
 - Pudottaa palikka nopeasti/välittömästi
 ## Hahmotelma pelistä
 
-(Kun olet lisännyt suunnitelmakuvan tähän hakemistoon, linkitä se tähän alle. Alla on esimerkkikuvan linkitys.)
+![Suunnitelma](suunnitelma.png "Suunnitelma")
 
 ## Toteutuksen suunnitelma
 
