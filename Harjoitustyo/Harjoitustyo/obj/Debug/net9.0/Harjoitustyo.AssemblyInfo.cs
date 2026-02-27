@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Harjoitustyo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfca0ff3e8546889ccfe9d72f2f6c026c7422f5e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+695f0ef00e8d55b540aeeaf78f900047810957ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("Harjoitustyo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Harjoitustyo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "39C+Wa6N+7k=",
+  "dgSpecHash": "y8FwHWRSbkA=",
   "success": true,
-  "projectFilePath": "C:\\kurssit\\ohj1\\k2026\\uusiHT\\ohj1ht\\ConsoleApp1\\Harjoitustyo\\Harjoitustyo.csproj",
+  "projectFilePath": "C:\\kurssit\\ohj1\\k2026\\uusiHT\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olive\\.nuget\\packages\\cyotek.drawing.bitmapfont\\2.0.4\\cyotek.drawing.bitmapfont.2.0.4.nupkg.sha512",
     "C:\\Users\\olive\\.nuget\\packages\\fontstashsharp\\1.2.8\\fontstashsharp.1.2.8.nupkg.sha512",
