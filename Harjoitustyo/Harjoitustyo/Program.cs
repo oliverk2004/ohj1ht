@@ -51,6 +51,11 @@ namespace Harjoitustyo
         }
 
 
+        /// <summary>
+        /// Luodaan funktio, jolla pystytään luomaan tetriksen "ruudukko".
+        /// Koska kuitenkin nyt sen ollessa fysiikkapeli, niin luodaan staattiset objektit
+        /// ,jotka ovat ruudukon seinämät. 
+        /// </summary>
         public void LuoLattiaJaSeinat()
         {
             lattia = PhysicsObject.CreateStaticObject(500, 40);
