@@ -37,6 +37,10 @@ namespace Harjoitustyo
             MessageDisplay.Add("Fysiikka‑Tetris");
         }
 
+        /// <summary>
+        /// Aliohjelma, jossa tapahtuu palikkaan kohdistuvan voiman siirto
+        /// </summary>
+        /// <param name="voima">Voiman suuruus ja suunta jolla palikkaa "lyödään".</param>
         public void Lyonti(Vector voima)
         {
             if (pala == null) return; // Jos ei ole aktiivista palaa
