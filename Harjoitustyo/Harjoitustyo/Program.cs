@@ -25,16 +25,25 @@ namespace Harjoitustyo
         {
             Level.Background.Color = Color.Black;
             Camera.ZoomToLevel();
-            Gravity = new Vector(0, -800);
+            Gravity = new Vector(0, -50);
             
             LuoUusiPala();
             LuoLattiaJaSeinat();
             
+            Keyboard.Listen(Key.Left, ButtonState.Down,  ()=> Lyonti(new Vector(-100, 0)), "Liikuta vasemmalle");
+            Keyboard.Listen(Key.Right, ButtonState.Down, () => Lyonti(new Vector(100, 0)), "Liikuta vasemmalle");
             Keyboard.Listen(Key.Escape, ButtonState.Pressed, ConfirmExit, "Lopeta peli");
 
             MessageDisplay.Add("Fysiikka‑Tetris");
         }
 
+        public void Lyonti(Vector voima)
+        {
+            if (pala == null) return; // Jos ei ole aktiivista palaa
+            pala.Hit(voima);
+        }
+
+        
         /// <summary>
         /// Luodaan funktio, jolla pystytään luomaan uusi pala, jota pystytään myöhemmin sitten ohjaamaan.
         /// </summary>
