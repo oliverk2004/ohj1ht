@@ -12,45 +12,47 @@ namespace Harjoitustyo
             new FysiikkaTetrisGame().Run();
         }
     }
+
     /// <summary>
     /// FysiikkaTetris -peli, joka muistuttaa normaalia tetristä, mutta on hieman erilainen
     /// </summary>
     public class FysiikkaTetrisGame : PhysicsGame
     {
-        // Luodaan attribuutti palasta
+        // Aktiivinen ohjattava pala
         private PhysicsObject pala;
-        // Samoin lattiasta
+
+        // Lattia (staattinen)
         private PhysicsObject lattia;
-        
+
         public override void Begin()
         {
             Level.Background.Color = Color.Black;
             Camera.ZoomToLevel();
             Gravity = new Vector(0, -50);
-            
-            LuoUusiPala();
+
             LuoLattiaJaSeinat();
-            
-            Keyboard.Listen(Key.Left, ButtonState.Down,  ()=> Lyonti(new Vector(-100, 0)), "Liikuta vasemmalle");
-            Keyboard.Listen(Key.Right, ButtonState.Down, () => Lyonti(new Vector(100, 0)), "Liikuta vasemmalle");
+            LuoUusiPala();
+
+            Keyboard.Listen(Key.Left,  ButtonState.Down, () => Lyonti(new Vector(-100, 0)), "Liikuta vasemmalle");
+            Keyboard.Listen(Key.Right, ButtonState.Down, () => Lyonti(new Vector( 100, 0)), "Liikuta oikealle");
             Keyboard.Listen(Key.Escape, ButtonState.Pressed, ConfirmExit, "Lopeta peli");
 
             MessageDisplay.Add("Fysiikka‑Tetris");
         }
 
         /// <summary>
-        /// Aliohjelma, jossa tapahtuu palikkaan kohdistuvan voiman siirto
+        /// Palikkaan kohdistuvan voiman "lyönti"
         /// </summary>
-        /// <param name="voima">Voiman suuruus ja suunta jolla palikkaa "lyödään".</param>
+        /// <param name="voima">Voiman suuruus ja suunta</param>
         public void Lyonti(Vector voima)
         {
             if (pala == null) return; // Jos ei ole aktiivista palaa
             pala.Hit(voima);
         }
 
-        
         /// <summary>
-        /// Luodaan funktio, jolla pystytään luomaan uusi pala, jota pystytään myöhemmin sitten ohjaamaan.
+        /// Luo uuden ohjattavan palikan ja asettaa törmäyskäsittelijät
+        /// lattiaan sekä jo lukittuihin paloihin.
         /// </summary>
         public void LuoUusiPala()
         {
@@ -58,22 +60,20 @@ namespace Harjoitustyo
             {
                 Color = RandomGen.NextColor(),
                 Position = new Vector(0, 300),
-                Tag = "pala"
+                Tag = "pala",
             };
-            
+
             Add(pala);
-            
-            
-            // Kun aktiivinen pala osuu lattiaan, luodaan uusi pala
+
+            // Kun aktiivinen pala osuu lattiaan
             AddCollisionHandler(pala, "lattia", PalaOsuiLattiaan);
 
+            // Kun aktiivinen pala osuu jo lukittuun palaan
+            AddCollisionHandler(pala, "lukittu", PalaOsuiLukittuun);
         }
 
-
         /// <summary>
-        /// Luodaan funktio, jolla pystytään luomaan tetriksen "ruudukko".
-        /// Koska kuitenkin nyt sen ollessa fysiikkapeli, niin luodaan staattiset objektit
-        /// ,jotka ovat ruudukon seinämät. 
+        /// Lattia ja seinät (staattisia objekteja).
         /// </summary>
         public void LuoLattiaJaSeinat()
         {
@@ -98,24 +98,43 @@ namespace Harjoitustyo
         
         /// <summary>
         /// Kutsutaan, kun aktiivinen pala osuu lattiaan.
-        /// Lukitaan pala paikoilleen ja luodaan uusi pala lyhyen viiveen jälkeen.
         /// </summary>
         private void PalaOsuiLattiaan(PhysicsObject tormaaja, PhysicsObject lattiaObj)
         {
-            // Varmista, että käsitellään vain kulloinkin aktiivista palaa
-            if (tormaaja != pala) return;
+            if (tormaaja != pala) return; // käsittele vain aktiivista palaa
+            LukitseJaLuoUusi(tormaaja);
+        }
 
-            // Pysäytä ja "lukitse" pala osuman jälkeen
+        /// <summary>
+        /// Kutsutaan, kun aktiivinen pala osuu jo lukittuun palaan
+        /// </summary>
+        private void PalaOsuiLukittuun(PhysicsObject tormaaja, PhysicsObject lukittuObj)
+        {
+            if (tormaaja != pala) return; // käsittele vain aktiivista palaa
+            LukitseJaLuoUusi(tormaaja);
+        }
+
+        /// <summary>
+        /// Yhteinen lukituslogiikka: pysäytä, tee staattiseksi, merkitse "lukittu",
+        /// nollaa viite ja luo uusi pala pienen viiveen jälkeen.
+        /// </summary>
+        private void LukitseJaLuoUusi(PhysicsObject tormaaja)
+        {
+            // Tuplatriggeröinnin esto: jos aktiivinen pala on jo nollattu, älä tee mitään
+            if (pala == null) return;
+
+            // Pysäytä ja "lukitse" pala
             tormaaja.Velocity = Vector.Zero;
             tormaaja.AngularVelocity = 0;
             tormaaja.Restitution = 0.0;
             tormaaja.MakeStatic();
+            tormaaja.Tag = "lukittu";
 
             // Nollaa viite aktiiviseen palaan ennen uuden luontia
             pala = null;
-            
+
+            // Pieni viive ehkäisee useita peräkkäisiä triggeröitymisiä
             Timer.SingleShot(0.05, LuoUusiPala);
         }
-
     }
 }
