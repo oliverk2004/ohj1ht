@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Jypeli;
 using Timer = Jypeli.Timer;
@@ -13,7 +12,9 @@ namespace Harjoitustyo
             new FysiikkaTetrisGame().Run();
         }
     }
-
+    /// <summary>
+    /// FysiikkaTetris -peli, joka muistuttaa normaalia tetristä, mutta on hieman erilainen
+    /// </summary>
     public class FysiikkaTetrisGame : PhysicsGame
     {
         // Luodaan attribuutti palasta
