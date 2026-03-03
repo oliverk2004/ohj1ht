@@ -19,7 +19,7 @@ namespace Harjoitustyo
     public class FysiikkaTetrisGame : PhysicsGame
     {
         // Aktiivinen ohjattava pala
-        private PhysicsObject pala;
+        private PhysicsObject? pala;
 
         // Lattia (staattinen)
         private PhysicsObject lattia;
@@ -28,13 +28,13 @@ namespace Harjoitustyo
         {
             Level.Background.Color = Color.Black;
             Camera.ZoomToLevel();
-            Gravity = new Vector(0, -50);
+            Gravity = new Vector(0, -100);
 
             LuoLattiaJaSeinat();
             LuoUusiPala();
 
-            Keyboard.Listen(Key.Left,  ButtonState.Down, () => Lyonti(new Vector(-100, 0)), "Liikuta vasemmalle");
-            Keyboard.Listen(Key.Right, ButtonState.Down, () => Lyonti(new Vector( 100, 0)), "Liikuta oikealle");
+            Keyboard.Listen(Key.Left,  ButtonState.Down, () => Lyonti(new Vector(-50, 0)), "Liikuta vasemmalle");
+            Keyboard.Listen(Key.Right, ButtonState.Down, () => Lyonti(new Vector( 50, 0)), "Liikuta oikealle");
             Keyboard.Listen(Key.Escape, ButtonState.Pressed, ConfirmExit, "Lopeta peli");
 
             MessageDisplay.Add("Fysiikka‑Tetris");
@@ -46,8 +46,7 @@ namespace Harjoitustyo
         /// <param name="voima">Voiman suuruus ja suunta</param>
         public void Lyonti(Vector voima)
         {
-            if (pala == null) return; // Jos ei ole aktiivista palaa
-            pala.Hit(voima);
+            if (pala != null) pala.Hit(voima);
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace Harjoitustyo
         /// </summary>
         public void LuoUusiPala()
         {
-            pala = new PhysicsObject(40, 40, Shape.Rectangle)
+            pala = new PhysicsObject(50, 50, Shape.Rectangle)
             {
                 Color = RandomGen.NextColor(),
                 Position = new Vector(0, 300),
@@ -120,7 +119,7 @@ namespace Harjoitustyo
         /// </summary>
         private void LukitseJaLuoUusi(PhysicsObject tormaaja)
         {
-            // Tuplatriggeröinnin esto: jos aktiivinen pala on jo nollattu, älä tee mitään
+            // Tuplatriggeröinnin esto: jos aktiivinen pala on jo nollattu
             if (pala == null) return;
 
             // Pysäytä ja "lukitse" pala
@@ -133,7 +132,6 @@ namespace Harjoitustyo
             // Nollaa viite aktiiviseen palaan ennen uuden luontia
             pala = null;
 
-            // Pieni viive ehkäisee useita peräkkäisiä triggeröitymisiä
             Timer.SingleShot(0.05, LuoUusiPala);
         }
     }
