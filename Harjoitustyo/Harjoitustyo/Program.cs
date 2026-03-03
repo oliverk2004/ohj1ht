@@ -62,6 +62,11 @@ namespace Harjoitustyo
             };
             
             Add(pala);
+            
+            
+            // Kun aktiivinen pala osuu lattiaan, luodaan uusi pala
+            AddCollisionHandler(pala, "lattia", PalaOsuiLattiaan);
+
         }
 
 
@@ -75,6 +80,7 @@ namespace Harjoitustyo
             lattia = PhysicsObject.CreateStaticObject(500, 40);
             lattia.Position = new Vector(0, -300);
             lattia.Color = Color.DarkGray;
+            lattia.Tag = "lattia";
             Add(lattia);
             
             PhysicsObject vasen = PhysicsObject.CreateStaticObject(40, 600);
@@ -88,5 +94,28 @@ namespace Harjoitustyo
             Add(vasen);
             Add(oikea);
         }
+        
+        
+        /// <summary>
+        /// Kutsutaan, kun aktiivinen pala osuu lattiaan.
+        /// Lukitaan pala paikoilleen ja luodaan uusi pala lyhyen viiveen jälkeen.
+        /// </summary>
+        private void PalaOsuiLattiaan(PhysicsObject tormaaja, PhysicsObject lattiaObj)
+        {
+            // Varmista, että käsitellään vain kulloinkin aktiivista palaa
+            if (tormaaja != pala) return;
+
+            // Pysäytä ja "lukitse" pala osuman jälkeen
+            tormaaja.Velocity = Vector.Zero;
+            tormaaja.AngularVelocity = 0;
+            tormaaja.Restitution = 0.0;
+            tormaaja.MakeStatic();
+
+            // Nollaa viite aktiiviseen palaan ennen uuden luontia
+            pala = null;
+            
+            Timer.SingleShot(0.05, LuoUusiPala);
+        }
+
     }
 }
