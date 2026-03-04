@@ -40,6 +40,7 @@ namespace Harjoitustyo
             MessageDisplay.Add("Fysiikka‑Tetris");
         }
 
+        
         /// <summary>
         /// Palikkaan kohdistuvan voiman "lyönti"
         /// </summary>
@@ -49,6 +50,7 @@ namespace Harjoitustyo
             if (pala != null) pala.Hit(voima);
         }
 
+        
         /// <summary>
         /// Luo uuden ohjattavan palikan ja asettaa törmäyskäsittelijät
         /// lattiaan sekä jo lukittuihin paloihin.
@@ -62,6 +64,9 @@ namespace Harjoitustyo
                 Tag = "pala",
             };
 
+            // Estetään palan kiertyminen
+            pala.CanRotate = false;
+            
             Add(pala);
 
             // Kun aktiivinen pala osuu lattiaan
@@ -71,6 +76,7 @@ namespace Harjoitustyo
             AddCollisionHandler(pala, "lukittu", PalaOsuiLukittuun);
         }
 
+        
         /// <summary>
         /// Lattia ja seinät (staattisia objekteja).
         /// </summary>
@@ -98,28 +104,35 @@ namespace Harjoitustyo
         /// <summary>
         /// Kutsutaan, kun aktiivinen pala osuu lattiaan.
         /// </summary>
+        /// <param name="tormaaja">Palikka, joka osuu lattiaan.</param>
+        /// <param name="lattiaObj">Staattinen lattiaobjekti.</param>
         private void PalaOsuiLattiaan(PhysicsObject tormaaja, PhysicsObject lattiaObj)
         {
             if (tormaaja != pala) return; // käsittele vain aktiivista palaa
             LukitseJaLuoUusi(tormaaja);
         }
 
+        
         /// <summary>
         /// Kutsutaan, kun aktiivinen pala osuu jo lukittuun palaan
         /// </summary>
+        /// <param name="tormaaja">Palikka, joka osuu toiseen jo törmänneeseen palikkaan.</param>
+        /// <param name="lukittuObj">Jo törmännyt palikka</param>
         private void PalaOsuiLukittuun(PhysicsObject tormaaja, PhysicsObject lukittuObj)
         {
             if (tormaaja != pala) return; // käsittele vain aktiivista palaa
             LukitseJaLuoUusi(tormaaja);
         }
 
+        
         /// <summary>
         /// Yhteinen lukituslogiikka: pysäytä, tee staattiseksi, merkitse "lukittu",
         /// nollaa viite ja luo uusi pala pienen viiveen jälkeen.
         /// </summary>
+        /// <param name="tormaaja">palikka, joka osuu joko lattiaan tai toiseen palikkaan.</param>
         private void LukitseJaLuoUusi(PhysicsObject tormaaja)
         {
-            // Tuplatriggeröinnin esto: jos aktiivinen pala on jo nollattu
+            // Jos aktiivinen pala on jo nollattu
             if (pala == null) return;
 
             // Pysäytä ja "lukitse" pala
@@ -129,7 +142,7 @@ namespace Harjoitustyo
             tormaaja.MakeStatic();
             tormaaja.Tag = "lukittu";
 
-            // Nollaa viite aktiiviseen palaan ennen uuden luontia
+            // Nollataan viite aktiiviseen palaan ennen uuden luontia
             pala = null;
 
             Timer.SingleShot(0.05, LuoUusiPala);
