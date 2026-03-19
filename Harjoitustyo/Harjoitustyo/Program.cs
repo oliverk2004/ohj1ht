@@ -26,6 +26,9 @@ namespace Harjoitustyo
         
         // Luodaan pistetaulu
         private Label pisteTaulu;
+        
+        // pisteet
+        private int pisteet = 0;
 
         public override void Begin()
         {
@@ -127,6 +130,7 @@ namespace Harjoitustyo
         {
             if (tormaaja != pala) return; // käsittele vain aktiivista palaa
             LukitseJaLuoUusi(tormaaja);
+            LisaaPiste(1); // Tästä saa siis yhteensä 2 pistettä, kun osuu jo lukittuun!
         }
 
         
@@ -146,6 +150,8 @@ namespace Harjoitustyo
             tormaaja.Restitution = 0.0;
             tormaaja.MakeStatic();
             tormaaja.Tag = "lukittu";
+            
+            LisaaPiste(1);
 
             // Nollataan viite aktiiviseen palaan ennen uuden luontia
             pala = null;
@@ -179,6 +185,13 @@ namespace Harjoitustyo
             pisteTaulu.Y = Screen.Top - 100;
             
             Add(pisteTaulu);
+        }
+
+
+        private void LisaaPiste(int maara)
+        {
+            pisteet += maara;
+            pisteTaulu.Text = $"Pisteet: {pisteet}";
         }
     }
 }
