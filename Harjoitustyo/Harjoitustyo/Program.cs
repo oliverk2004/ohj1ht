@@ -35,6 +35,7 @@ namespace Harjoitustyo
 
             Keyboard.Listen(Key.Left,  ButtonState.Down, () => Lyonti(new Vector(-50, 0)), "Liikuta vasemmalle");
             Keyboard.Listen(Key.Right, ButtonState.Down, () => Lyonti(new Vector( 50, 0)), "Liikuta oikealle");
+            Keyboard.Listen(Key.Space, ButtonState.Pressed, SuoraPudotus, "Pudota suoraan");
             Keyboard.Listen(Key.Escape, ButtonState.Pressed, ConfirmExit, "Lopeta peli");
 
             MessageDisplay.Add("Fysiikka‑Tetris");
@@ -57,7 +58,7 @@ namespace Harjoitustyo
         /// </summary>
         public void LuoUusiPala()
         {
-            pala = new PhysicsObject(50, 50, Shape.Rectangle)
+            pala = new PhysicsObject(70, 70, Shape.Rectangle)
             {
                 Color = RandomGen.NextColor(),
                 Position = new Vector(0, 300),
@@ -146,6 +147,19 @@ namespace Harjoitustyo
             pala = null;
 
             Timer.SingleShot(0.05, LuoUusiPala);
+        }
+
+        /// <summary>
+        /// Jos pelaaja painaa välilyöntiä niin palikka tippuu nopeasti alas.
+        /// </summary>
+        private void SuoraPudotus()
+        {
+            if (pala == null)
+            {
+                return;
+            }
+
+            pala.Velocity = new Vector(0, -500);
         }
     }
 }
