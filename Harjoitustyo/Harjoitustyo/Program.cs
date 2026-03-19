@@ -23,6 +23,9 @@ namespace Harjoitustyo
 
         // Lattia (staattinen)
         private PhysicsObject lattia;
+        
+        // Luodaan pistetaulu
+        private Label pisteTaulu;
 
         public override void Begin()
         {
@@ -31,6 +34,7 @@ namespace Harjoitustyo
             Gravity = new Vector(0, -100);
 
             LuoLattiaJaSeinat();
+            LuoPisteTaulu();
             LuoUusiPala();
 
             Keyboard.Listen(Key.Left,  ButtonState.Down, () => Lyonti(new Vector(-50, 0)), "Liikuta vasemmalle");
@@ -160,6 +164,21 @@ namespace Harjoitustyo
             }
 
             pala.Velocity = new Vector(0, -500);
+        }
+
+
+        private void LuoPisteTaulu()
+        {
+            pisteTaulu = new Label
+            {
+                Text = "Pisteet: 0",
+                TextColor = Color.White
+            };
+
+            pisteTaulu.X = Screen.Left + 100;
+            pisteTaulu.Y = Screen.Top - 100;
+            
+            Add(pisteTaulu);
         }
     }
 }
