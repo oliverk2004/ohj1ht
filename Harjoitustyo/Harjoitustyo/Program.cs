@@ -47,6 +47,7 @@ namespace Harjoitustyo
             Keyboard.Listen(Key.Left,  ButtonState.Down, () => Lyonti(new Vector(-50, 0)), "Liikuta vasemmalle");
             Keyboard.Listen(Key.Right, ButtonState.Down, () => Lyonti(new Vector( 50, 0)), "Liikuta oikealle");
             Keyboard.Listen(Key.Space, ButtonState.Pressed, SuoraPudotus, "Pudota suoraan");
+            Keyboard.Listen(Key.R,     ButtonState.Pressed, Uudelleenkaynnista, "Aloita alusta");
             Keyboard.Listen(Key.Escape, ButtonState.Pressed, ConfirmExit, "Lopeta peli");
 
             MessageDisplay.Add("Fysiikka‑Tetris");
@@ -179,6 +180,16 @@ namespace Harjoitustyo
             MessageDisplay.Add($"Peli päättyi! Pisteet: {pisteet}. Paina R aloittaaksesi alusta tai Esc lopettaaksesi.");
             // Estetään uuden palan luonti
             pala = null;
+        }
+        
+        /// <summary>
+        /// Tyhjentää tason ja aloittaa pelin alusta.
+        /// </summary>
+        private void Uudelleenkaynnista()
+        {
+            ClearAll();
+            pisteet = 0;
+            Begin(); // alusta kaikki uudelleen
         }
         
         
