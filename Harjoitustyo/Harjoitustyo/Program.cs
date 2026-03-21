@@ -30,6 +30,10 @@ namespace Harjoitustyo
         // pisteet
         private int pisteet = 0;
 
+        // Jos viimeinen lukittu pala on samassa korkeudessa kuin uuden spawnaavan palikan niin sitten peli päättyy. 
+        private double GAME_OVER_Y = 250;
+
+
         public override void Begin()
         {
             Level.Background.Color = Color.Black;
@@ -153,12 +157,31 @@ namespace Harjoitustyo
             
             LisaaPiste(1);
 
+            // Jos pino on liian korkealla
+            if (tormaaja.Y > GAME_OVER_Y)
+            {
+                GameOver();
+                return;
+            }
+            
             // Nollataan viite aktiiviseen palaan ennen uuden luontia
             pala = null;
 
             Timer.SingleShot(0.05, LuoUusiPala);
         }
 
+        
+        /// <summary>
+        /// Päättää pelin ja näyttää viestin sekä tarjoaa uudelleenkäynnistyksen.
+        /// </summary>
+        private void GameOver()
+        {
+            MessageDisplay.Add($"Peli päättyi! Pisteet: {pisteet}. Paina R aloittaaksesi alusta tai Esc lopettaaksesi.");
+            // Estetään uuden palan luonti
+            pala = null;
+        }
+        
+        
         /// <summary>
         /// Jos pelaaja painaa välilyöntiä niin palikka tippuu nopeasti alas.
         /// </summary>
