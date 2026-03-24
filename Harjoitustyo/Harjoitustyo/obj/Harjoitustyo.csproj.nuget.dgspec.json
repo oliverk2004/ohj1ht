@@ -1,37 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\kurssit\\ohj1\\k2026\\uusiHT\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj": {}
+    "C:\\Kurssit\\ohj12026\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj": {}
   },
   "projects": {
-    "C:\\kurssit\\ohj1\\k2026\\uusiHT\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj": {
+    "C:\\Kurssit\\ohj12026\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\kurssit\\ohj1\\k2026\\uusiHT\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj",
+        "projectUniqueName": "C:\\Kurssit\\ohj12026\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj",
         "projectName": "Harjoitustyo",
-        "projectPath": "C:\\kurssit\\ohj1\\k2026\\uusiHT\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj",
-        "packagesPath": "C:\\Users\\olive\\.nuget\\packages\\",
-        "outputPath": "C:\\kurssit\\ohj1\\k2026\\uusiHT\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\obj\\",
+        "projectPath": "C:\\Kurssit\\ohj12026\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\Harjoitustyo.csproj",
+        "packagesPath": "C:\\Users\\Omistaja\\.nuget\\packages\\",
+        "outputPath": "C:\\Kurssit\\ohj12026\\ohj1ht\\Harjoitustyo\\Harjoitustyo\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\olive\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Omistaja\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net9.0"
+          "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
+          "net10.0": {
+            "targetAlias": "net10.0",
             "projectReferences": {}
           }
         },
@@ -43,13 +36,13 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net10.0": {
+          "targetAlias": "net10.0",
           "dependencies": {
             "Jypeli.FarseerPhysics.NET": {
               "target": "Package",
@@ -71,12 +64,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[10.0.5, 10.0.5]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[10.0.5, 10.0.5]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[10.0.5, 10.0.5]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
