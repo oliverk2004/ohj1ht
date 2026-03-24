@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Jypeli;
+﻿using Jypeli;
 using Timer = Jypeli.Timer;
 
 namespace Harjoitustyo
@@ -32,8 +30,8 @@ namespace Harjoitustyo
         private int pisteet = 0;
 
         // Jos viimeinen lukittu pala on samassa korkeudessa kuin uuden spawnaavan palikan niin sitten peli päättyy. 
-        private double GAME_OVER_Y = 250;
-        
+        private const double GameOverY = 250;
+
         // Luodaan lista lukituista paloista
         private List<PhysicsObject> lukitutPalat = new List<PhysicsObject>();
 
@@ -62,7 +60,7 @@ namespace Harjoitustyo
         /// Palikkaan kohdistuvan voiman "lyönti"
         /// </summary>
         /// <param name="voima">Voiman suuruus ja suunta</param>
-        public void Lyonti(Vector voima)
+        private void Lyonti(Vector voima)
         {
             if (pala != null) pala.Hit(voima);
         }
@@ -72,7 +70,7 @@ namespace Harjoitustyo
         /// Luo uuden ohjattavan palikan ja asettaa törmäyskäsittelijät
         /// lattiaan sekä jo lukittuihin paloihin.
         /// </summary>
-        public void LuoUusiPala()
+        private void LuoUusiPala()
         {
             pala = new PhysicsObject(70, 70, Shape.Rectangle)
             {
@@ -97,7 +95,7 @@ namespace Harjoitustyo
         /// <summary>
         /// Lattia ja seinät (staattisia objekteja).
         /// </summary>
-        public void LuoLattiaJaSeinat()
+        private void LuoLattiaJaSeinat()
         {
             lattia = PhysicsObject.CreateStaticObject(500, 40);
             lattia.Position = new Vector(0, -300);
@@ -166,7 +164,7 @@ namespace Harjoitustyo
             LisaaPiste(1);
 
             // Jos pino on liian korkealla
-            if (PinonYlinKohta() > GAME_OVER_Y)
+            if (PinonYlinKohta() > GameOverY)
             {
                 GameOver();
                 return;
@@ -191,11 +189,11 @@ namespace Harjoitustyo
             
             // Käytetään silmukkaa etsimään lukittujen palojen y-koordinaatit ja päivittämään korkeimmalla
             // oleva pala tarvittaessa.
-            foreach (PhysicsObject pala in lukitutPalat)
+            foreach (PhysicsObject lukittuPala in lukitutPalat)
             {
-                if (pala.Y > korkeinKohta)
+                if (lukittuPala.Y > korkeinKohta)
                 {
-                    korkeinKohta = pala.Y;
+                    korkeinKohta = lukittuPala.Y;
                 }
             }
             
