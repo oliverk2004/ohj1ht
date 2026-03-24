@@ -32,6 +32,9 @@ namespace Harjoitustyo
 
         // Jos viimeinen lukittu pala on samassa korkeudessa kuin uuden spawnaavan palikan niin sitten peli päättyy. 
         private double GAME_OVER_Y = 250;
+        
+        // Luodaan lista lukituista paloista
+        private List<PhysicsObject> lukitutPalat = new List<PhysicsObject>();
 
 
         public override void Begin()
@@ -155,6 +158,9 @@ namespace Harjoitustyo
             tormaaja.Restitution = 0.0;
             tormaaja.MakeStatic();
             tormaaja.Tag = "lukittu";
+            
+            // Tallennetaan lukittu pala listaan
+            lukitutPalat.Add(tormaaja);
             
             LisaaPiste(1);
 
