@@ -13,6 +13,7 @@ namespace Harjoitustyo
         }
     }
 
+    
     /// <summary>
     /// FysiikkaTetris -peli, joka muistuttaa normaalia tetristä, mutta on hieman erilainen
     /// </summary>
@@ -165,7 +166,7 @@ namespace Harjoitustyo
             LisaaPiste(1);
 
             // Jos pino on liian korkealla
-            if (tormaaja.Y > GAME_OVER_Y)
+            if (PinonYlinKohta() > GAME_OVER_Y)
             {
                 GameOver();
                 return;
@@ -175,6 +176,30 @@ namespace Harjoitustyo
             pala = null;
 
             Timer.SingleShot(0.05, LuoUusiPala);
+        }
+
+
+        /// <summary>
+        /// Palauttaa jo lukittujen palojen korkeimman y-koordinaatin.
+        /// Tätä funktiota pystytään käyttämään LukitseJaLuoUusi funktiossa hyödyksi, jotta voidaan tarvittaessa
+        /// päättää peli. 
+        /// </summary>
+        /// <returns>Korkein y-koordinaatti</returns>
+        private double PinonYlinKohta()
+        {
+            double korkeinKohta = double.MinValue;
+            
+            // Käytetään silmukkaa etsimään lukittujen palojen y-koordinaatit ja päivittämään korkeimmalla
+            // oleva pala tarvittaessa.
+            foreach (PhysicsObject pala in lukitutPalat)
+            {
+                if (pala.Y > korkeinKohta)
+                {
+                    korkeinKohta = pala.Y;
+                }
+            }
+            
+            return korkeinKohta;
         }
 
         
@@ -188,12 +213,14 @@ namespace Harjoitustyo
             pala = null;
         }
         
+        
         /// <summary>
         /// Tyhjentää tason ja aloittaa pelin alusta.
         /// </summary>
         private void Uudelleenkaynnista()
         {
             ClearAll();
+            lukitutPalat.Clear(); // Tyhjennetään lista aina kun käynnistetään uusi peli.
             pisteet = 0;
             Begin(); // alusta kaikki uudelleen
         }
@@ -213,6 +240,10 @@ namespace Harjoitustyo
         }
 
 
+        /// <summary>
+        /// Luodaan pistetaulu
+        /// Pisteystys menee näin: 1 piste jos osuu vain lattiaan ja 2 pistettä jos jo lukittuun palaan.
+        /// </summary>
         private void LuoPisteTaulu()
         {
             pisteTaulu = new Label
@@ -228,6 +259,10 @@ namespace Harjoitustyo
         }
 
 
+        /// <summary>
+        /// Lisää pisteitä pistetauluun.
+        /// </summary>
+        /// <param name="maara">Kuinka paljon lisätään.</param>
         private void LisaaPiste(int maara)
         {
             pisteet += maara;
