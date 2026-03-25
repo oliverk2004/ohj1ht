@@ -164,7 +164,7 @@ namespace Harjoitustyo
             LisaaPiste(1);
 
             // Jos pino on liian korkealla
-            if (PinonYlinKohta() > GameOverY)
+            if (PinonYlinKohta(lukitutPalat) > GameOverY)
             {
                 GameOver();
                 return;
@@ -183,13 +183,13 @@ namespace Harjoitustyo
         /// päättää peli. 
         /// </summary>
         /// <returns>Korkein y-koordinaatti</returns>
-        private double PinonYlinKohta()
+        private static double PinonYlinKohta(List<PhysicsObject> palat)
         {
             double korkeinKohta = double.MinValue;
             
             // Käytetään silmukkaa etsimään lukittujen palojen y-koordinaatit ja päivittämään korkeimmalla
             // oleva pala tarvittaessa.
-            foreach (PhysicsObject lukittuPala in lukitutPalat)
+            foreach (PhysicsObject lukittuPala in palat)
             {
                 if (lukittuPala.Y > korkeinKohta)
                 {
